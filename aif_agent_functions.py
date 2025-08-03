@@ -3,6 +3,7 @@ from aif_project_client import AIF_ProjectClient
 from aif_support_agent_factory import AIF_SupportAgentFactory
 from aif_data_agent_factory import AIF_DataAgentFactory
 from aif_agent_triage_factory import AIF_AgentTriageFactory
+from aif_mcp_agent_factory import AIF_MCPAgentFactory
 
 # function to create and run an agent using the project client.
 def create_and_run_agent(agent_type):    
@@ -32,7 +33,10 @@ def create_agent(agent_type):
             name = "Bob"
         elif agent_type.lower() == os.getenv("TRIAGE_AGENT_NAME"):        
             agent_factory = AIF_AgentTriageFactory(support_level=2)  
-            name = "John"    
+            name = "John"
+        elif agent_type.lower() == os.getenv("MCP_AGENT_NAME"):        
+            agent_factory = AIF_MCPAgentFactory(data_domain="finance")  
+            name = "Lis"    
         else:
             raise ValueError("Unknown agent type. Use 'support' or 'data'.")
         return agent_factory.create_agent(name)
@@ -42,7 +46,7 @@ def create_agent(agent_type):
 # function to execute an agent.
 def execute_agent(agent_type):
     try:
-        if agent_type.lower() == os.getenv("SUPPORT_AGENT_NAME") or agent_type.lower() == os.getenv("DATA_AGENT_NAME") or agent_type.lower() == os.getenv("TRIAGE_AGENT_NAME"):        
+        if agent_type.lower() == os.getenv("SUPPORT_AGENT_NAME") or agent_type.lower() == os.getenv("DATA_AGENT_NAME") or agent_type.lower() == os.getenv("TRIAGE_AGENT_NAME") or agent_type.lower() == os.getenv("MCP_AGENT_NAME"):        
             create_agent(agent_type).execute_agent()   
         else:
             create_and_run_agent(agent_type)           

@@ -2,7 +2,7 @@
 from aif_agent_factory import AIF_AgentFactory
 from aif_agent_triage_client import AIF_AgentTriageClient
 
-# Derived Factory Class to create a support agent.
+# Derived Factory Class to create a triage agent.
 class AIF_AgentTriageFactory(AIF_AgentFactory):
     def __init__(self, support_level):
         self.support_level = support_level
